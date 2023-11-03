@@ -1,0 +1,210 @@
+---
+title: "Setting up your computer" 
+engine: knitr 
+description: Step by step to properly set up your computer to run models using Stan!
+date: today # other options: now, last-modified
+author:
+  - name: Dr. Jesús N. Pinto-Ledezma 
+    url: https://jesusnpl.github.io
+    affiliation: Ecology, Evolution & Behavior, University of Minnesota
+title-block-banner: true
+#title-block-banner: "#562457"
+format: 
+  html: 
+    embed-resources: true # save contained file.
+    theme: cosmo # check other themes https://quarto.org/docs/output-formats/html-themes.html
+    code-fold: true
+    toc: true
+    number-sections: true
+bibliography: /Users/jpintole/Library/CloudStorage/Dropbox/Teaching/Multilevel/quarto/bibliography.bib
+link-citations: true
+csl: /Users/jpintole/Library/CloudStorage/Dropbox/Teaching/Multilevel/quarto/apa-single-spaced.csl
+---
+
+# Intro
+
+Before installing the packages needed for this short workshop please be sure you have the adequate compilers. 
+
+# Windows users
+
+If you are a Windows user, you will need [**"RTools"**](https://cran.r-project.org/bin/windows/Rtools/rtools43/rtools.html). 
+
+To check if you have **RTools** installed, the simplest way is just to look at the installed software by clicking on the Windows start button. Scroll down until R and see if there is an extra folder named RTools - Just that!!! 
+
+If you don't have RTools, download the package from [HERE](https://cran.r-project.org/bin/windows/Rtools/) 
+
+Always double-check which R version you are using. Further instructions are provided on the same webpage.
+
+# Mac users 
+
+If you are a Mac user you just need "Xcode". To check if you have installed Xcode on your Mac, use the following steps:
+
+Step 1. Open terminal 
+
+Step 2. type: 
+
+```{bash} 
+#| eval: false 
+
+xcodebuild -version 
+
+```
+
+Step 2.1. if everything is OK, the version of your **Xcode** will be printed on your terminal.
+
+If you don't have **Xcode** installed there are a couple of options but I strongly recommend installing Xcode using the terminal
+
+Step 1. Open terminal 
+
+Step 2. type: 
+
+```{bash}
+#| eval: false 
+
+xcode-select –install
+
+```
+
+Step 2.1. Follow the instructions to complete the installation - this will take some time, please be patient.
+
+Step 3. To check if the installation was correct, open the terminal 
+
+Step 3.1. type:  "or" xcode-select -p
+
+```{bash}
+#| eval: false
+
+xcodebuild -version
+
+```
+
+or 
+
+```{bash}
+#| eval: false
+
+xcode-select -p
+
+```
+
+Hooray!!! 
+
+# Required R packages
+
+For this workshop we will use the following packages: 
+
+1. {tidyverse} 
+
+2. {rstan} 
+
+3. {ape} 
+
+4. {cmdstanr} 
+
+5. {brms} 
+
+6. {posterior} 
+
+7. {bayesplot} 
+
+{tidyverse} and {ape} can be installed by running the following line of code: 
+
+```{r}
+#| eval: false 
+
+install.packages(c("tidyverse", "ape")) 
+
+```
+
+## Installing {rstan}
+
+To install {rstan} please run: 
+
+```{r}
+#| eval: false 
+
+install.packages("rstan", type = "source") 
+
+```
+
+## Installing {cmdstanr}
+
+To install {cmdstanr} follow the next steps: 
+
+Step 1 - run:
+
+
+```{r}
+#| eval: false 
+
+install.packages("cmdstanr", repos = c("https://mc-stan.org/r-packages/", getOption("repos"))) 
+
+```
+
+Step 2 - run 
+
+```{r}
+#| eval: false 
+
+library(cmdstanr)
+
+```
+
+Step 3 - Double check that your toolchain is set up properly 
+
+```{r}
+#| eval: false 
+
+check_cmdstan_toolchain()
+
+```
+
+If successfull the following message will be printed on your R console:
+
+**The C++ toolchain required for CmdStan is setup properly!**
+
+Step 4 - If your toolchain is configured correctly then CmdStan can be installed. Please run:
+
+Note that this step will take some time, please be patient!
+
+```{r}
+#| eval: false 
+
+install_cmdstan()
+
+```
+
+Step 5 - Check the path to the CmdStan installation and the CmdStan version number. 
+
+```{r}
+#| eval: false 
+
+cmdstan_path()
+
+cmdstan_version()
+
+```
+
+Further instructions can be found [here](https://mc-stan.org/cmdstanr/articles/cmdstanr.html)
+
+## Installing {brms}
+
+To install {brms} you just can run: 
+
+```{r}
+#| eval: false 
+
+install.packages("brms")
+
+```
+
+However, if you are confident enough you can run 
+
+```{r}
+#| eval: false 
+
+install.packages("brms", type = "source")
+
+```
+
+**Hooray!!!**
