@@ -16,9 +16,9 @@ format:
     code-fold: true
     toc: true
     number-sections: true
-bibliography: /Users/jpintole/Library/CloudStorage/Dropbox/Teaching/Multilevel/quarto/bibliography.bib
+bibliography: /Users/jpintole/Library/CloudStorage/Dropbox/Teaching/Multilevel/MLM_intro/quarto/bibliography.bib
 link-citations: true
-csl: /Users/jpintole/Library/CloudStorage/Dropbox/Teaching/Multilevel/quarto/apa-single-spaced.csl
+csl: /Users/jpintole/Library/CloudStorage/Dropbox/Teaching/Multilevel/MLM_intro/quarto/apa-single-spaced.csl
 ---
 
 # Intro
@@ -107,12 +107,14 @@ For this workshop we will use the following packages:
 
 7. {bayesplot} 
 
-{tidyverse} and {ape} can be installed by running the following line of code: 
+8. {tidybayes}
+
+{tidyverse}, {tidybayes} and, {ape} can be installed by running the following line of code: 
 
 ```{r}
 #| eval: false 
 
-install.packages(c("tidyverse", "ape")) 
+install.packages(c("tidyverse", "tidybayes", "ape")) 
 
 ```
 
