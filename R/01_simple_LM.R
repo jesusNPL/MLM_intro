@@ -46,7 +46,7 @@ fit_cmdstanr <- mod$sample(
   data = data_list, # data list
   seed = 12345, # random seed number
   chains = 4, # number of chains
-  parallel_chains = 2, # number of cores used to run the model
+  parallel_chains = 4, # number of cores used to run the model
   refresh = 500 # print update every 500 iterations
 )
 

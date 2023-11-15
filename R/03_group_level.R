@@ -25,10 +25,6 @@ pana_phy <- read.nexus("data/pana_phylo.nex")
 plot(pana_phy, type = "phylogram", show.tip.label = FALSE)
 axisPhylo()
 
-##### Model  ##### 
-
-# Click on File -> New file -> Stan file
-
 ##### Explore the data #####
 
 ### Number of observations per KG 
@@ -65,7 +61,7 @@ mod0_FlatPrior <- brm(formula = log(sla) ~ CHELSA_bio10_1 + CHELSA_bio10_12,
                     cores = 10)
 
 # Explore convergence 
-plot(mod0_FlatPrior, ask = FALSE, N = 4)
+plot(mod0_FlatPrior, ask = FALSE, N = 2)
 
 summary(mod0_FlatPrior)
 conditional_effects(mod0_FlatPrior)
@@ -123,21 +119,24 @@ loo_compare(mod0_FlatPrior, mod0_WeakPrior, criterion = "loo")
 
 ### Test the hypothesis that the predictors deviates from zero
 
-# Mean Annual Temperature
+## Mean Annual Temperature
 ht <- hypothesis(x = mod0_WeakPrior, 
                  hypothesis = "CHELSA_bio10_1 > 0", 
                  alpha = 0.05, 
                  robust = TRUE)
 
 plot(ht)
+# print the results
+ht 
 
-# Mean Annual Precipitation
+## Mean Annual Precipitation
 hp <- hypothesis(x = mod0_WeakPrior, 
                  hypothesis = "CHELSA_bio10_12 < 0", 
                  alpha = 0.05, 
                  robust = TRUE)
 plot(hp)
-
+# print the results
+hp
 ##### Posterior predictive checks #####
 
 # Plots comparing the empirical distribution of data y to the distributions of individual simulated datasets (rows) in yrep.
@@ -188,6 +187,17 @@ bayes_R2(mod1_WeakPrior)
 round(data.frame(bayes_R2(mod1_WeakPrior, re_formula = NA)), 3) # include no group-level effects.
 round(data.frame(bayes_R2(mod1_WeakPrior, re_formula = NULL)), 3) # include all group-level effects
 
+### test the amount of random intercept variance (Species) on all variance
+h_spp <- paste("sd_Species__Intercept^2 / (sd_Species__Intercept^2 +", "sigma^2) = 0") 
+
+h_spp_dist <- hypothesis(mod1_WeakPrior, h_spp, class = NULL) 
+
+plot(h_spp_dist)
+
+# print the results
+h_spp_dist
+
+## add information criterion
 mod1_WeakPrior <-  add_criterion(mod1_WeakPrior, c("loo", "waic"))
 
 loo(mod1_WeakPrior)
@@ -219,6 +229,28 @@ bayes_R2(mod1b_WeakPrior)
 round(data.frame(bayes_R2(mod1b_WeakPrior, re_formula = NA)), 3) # include no group-level effects.
 round(data.frame(bayes_R2(mod1b_WeakPrior, re_formula = NULL)), 3) # include all group-level effects
 
+### Estimate the phylogenetic signal of SLA
+h_phy1 <- paste(
+  "sd_Species__Intercept^2 /",
+  "(sd_Species__Intercept^2 + sigma^2) = 0"
+)
+
+ps1 <- hypothesis(mod1b_WeakPrior, h_phy1, class = NULL)
+ps1
+
+plot(ps1)
+
+### test the amount of random intercept variance (Phylogeny) on all variance
+h_phy <- paste("sd_Species__Intercept^2 / (sd_Species__Intercept^2 +", "sigma^2) = 0") 
+
+h_phy_dist <- hypothesis(mod1b_WeakPrior, h_phy, class = NULL) 
+
+plot(h_phy_dist)
+
+# print the results
+h_phy_dist
+
+## add information criterior
 mod1b_WeakPrior <-  add_criterion(mod1b_WeakPrior, c("loo", "waic"))
 
 loo(mod1b_WeakPrior)
@@ -264,15 +296,28 @@ loo(mod2_WeakPrior)
 loo_compare(mod0_WeakPrior, mod1_WeakPrior, mod2_WeakPrior, criterion = "loo")
 
 ### Estimate the phylogenetic signal of SLA
-h_phy <- paste(
+h_phy2 <- paste(
   "sd_Species_model__Intercept^2 /",
   "(sd_Species_model__Intercept^2 + sd_Species__Intercept^2 + sigma^2) = 0"
 )
 
-ps <- hypothesis(mod2_WeakPrior, h_phy, class = NULL)
-ps
+ps2 <- hypothesis(mod2_WeakPrior, h_phy2, class = NULL)
+ps2
 
-plot(ps)
+plot(ps2)
+
+### test the amount of random intercept variance (Species) on all variance
+h_spp2 <- paste(
+  "sd_Species__Intercept^2 /",
+  "(sd_Species_model__Intercept^2 + sd_Species__Intercept^2 + sigma^2) = 0"
+)
+
+h_spp2_dist <- hypothesis(mod2_WeakPrior, h_spp2, class = NULL) 
+
+plot(h_spp2_dist)
+
+# print the results
+h_spp2_dist
 
 ### Get the population-level effects or fixed effects
 fixef(mod2_WeakPrior)
