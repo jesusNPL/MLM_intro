@@ -15,6 +15,9 @@ glimpse(pana_trt)
 pana_trt %>% 
   view()
 
+pana_trt %>% 
+  count(Species)
+
 ##### Step 1 - build a linear model from scratch ##### 
 
 # Click on File -> New file -> Stan file

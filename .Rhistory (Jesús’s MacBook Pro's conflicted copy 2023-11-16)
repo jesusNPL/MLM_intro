@@ -1,0 +1,512 @@
+samp_draws <- posterior[keep, ]
+# store results
+results <- list(posterios = posterior, posterior_means = post_means,
+keep = keep, draws = samp_draws)
+return(results)
+}
+posterior <- extractSamples(model = fit1, parameters = "^b", nDraws = 500)
+extractSamples <- function(model, parameters = "^b", nDraws = 100) {
+# get posteriors
+posterior <- brms::as.data.frame.brmsfit(model, variable = parameters)
+# estimate posterior means
+post_means <- colMeans(posterior)
+# take a sample from the posterior draws
+keep <- sample(nrow(posterior), nDraws)
+samp_draws <- posterior[keep, ]
+# store results
+results <- list(posterios = posterior, posterior_means = post_means,
+keep = keep, draws = samp_draws)
+return(results)
+}
+posterior <- extractSamples(model = fit1, parameters = "^b", nDraws = 500)
+# get posteriors
+posterior <- brms::as.data.frame(model, variable = parameters)
+extractSamples <- function(model, parameters = "^b", nDraws = 100) {
+# get posteriors
+posterior <- brms::as.data.frame(model, variable = parameters)
+# estimate posterior means
+post_means <- colMeans(posterior)
+# take a sample from the posterior draws
+keep <- sample(nrow(posterior), nDraws)
+samp_draws <- posterior[keep, ]
+# store results
+results <- list(posterios = posterior, posterior_means = post_means,
+keep = keep, draws = samp_draws)
+return(results)
+}
+posterior <- extractSamples(model = fit1, parameters = "^b", nDraws = 500)
+extractSamples <- function(model, parameters = "^b", nDraws = 100) {
+# get posteriors
+posterior <- as.data.frame(model, variable = parameters)
+# estimate posterior means
+post_means <- colMeans(posterior)
+# take a sample from the posterior draws
+keep <- sample(nrow(posterior), nDraws)
+samp_draws <- posterior[keep, ]
+# store results
+results <- list(posterios = posterior, posterior_means = post_means,
+keep = keep, draws = samp_draws)
+return(results)
+}
+posterior <- extractSamples(model = fit1, parameters = "^b", nDraws = 500)
+as.data.frame(fit1, variable = "^b")
+as.data.frame(fit1, variable = "b")
+as.data.frame(fit1)
+install.packages("brms", type = "source")
+library(tidyverse)
+library(brms)
+prior1 <- prior(normal(0, 10), class = b) +
+prior(cauchy(0, 2), class = sd)
+fit1 <- brm(count ~ zAge + zBase * Trt + (1 | patient),
+data = epilepsy, family = poisson(), prior = prior1,
+backend = "cmdstanr", cores = 12)
+extractSamples <- function(model, parameters = "^b_", nDraws = 100) {
+# get posteriors
+posterior <- as.data.frame(model, variable = parameters)
+# estimate posterior means
+post_means <- colMeans(posterior)
+# take a sample from the posterior draws
+keep <- sample(nrow(posterior), nDraws)
+samp_draws <- posterior[keep, ]
+# store results
+results <- list(posterios = posterior, posterior_means = post_means,
+keep = keep, draws = samp_draws)
+return(results)
+}
+posterior <- extractSamples(model = fit1, parameters = "^b_", nDraws = 500)
+as_draws_array(fit1, variable = "^b_", regex = TRUE)
+extractSamples <- function(model, parameters, nDraws = 100) {
+# get posteriors
+posterior <- as.data.frame(model, variable = parameters)
+# estimate posterior means
+post_means <- colMeans(posterior)
+# take a sample from the posterior draws
+keep <- sample(nrow(posterior), nDraws)
+samp_draws <- posterior[keep, ]
+# store results
+results <- list(posterios = posterior, posterior_means = post_means,
+keep = keep, draws = samp_draws)
+return(results)
+}
+posterior <- extractSamples(model = fit1, parameters = "^b_", nDraws = 500)
+extractSamples <- function(model, parameters, nDraws = 100) {
+# get posteriors
+posterior <- as.data.frame(model, variable = parameters, regex = TRUE)
+# estimate posterior means
+post_means <- colMeans(posterior)
+# take a sample from the posterior draws
+keep <- sample(nrow(posterior), nDraws)
+samp_draws <- posterior[keep, ]
+# store results
+results <- list(posterios = posterior, posterior_means = post_means,
+keep = keep, draws = samp_draws)
+return(results)
+}
+posterior <- extractSamples(model = fit1, parameters = "^b_", nDraws = 500)
+posterior$posterios
+extractSamples <- function(model, parameters, nDraws = 100) {
+# get posteriors
+posterior <- as.data.frame(model, variable = parameters, regex = TRUE)
+# estimate posterior means
+post_means <- colMeans(posterior)
+# take a sample from the posterior draws
+keep <- sample(nrow(posterior), nDraws)
+samp_draws <- posterior[keep, ]
+# store results
+results <- list(posterios = posterior, posterior_means = post_means,
+keep = keep, draws = samp_draws)
+return(results)
+}
+as_draws_array(fit1, variable = "^b_", regex = TRUE)
+as.data.frame(fit1)
+as.data.frame(fit1, variable = "^b_", regex = TRUE)
+as.data.frame(fit1, variable = "^b_", regex = TRUE)
+posterior::summarize_draws(draws_fit)
+draws_fit <- as_draws_array(fit1)
+posterior::summarize_draws(draws_fit)
+pos <- posterior::summarize_draws(draws_fit)
+View(pos)
+?posterior::summarize_draws
+library(posterior)
+?mad
+?hypothesis
+pos
+hypothesis(x = fit1,
+hypothesis = "^b_zAge > 0")
+hypothesis(x = fit1,
+hypothesis = "b_zAge > 0")
+hypothesis(x = fit1,
+hypothesis = "zAge > 0")
+hypothesis(x = fit1,
+hypothesis = "zBase > 0",
+alpha = 0.05)
+## use the default method
+dat <- as.data.frame(fit1)
+str(dat)
+hypothesis(dat, "b_zAge > 0")
+hypothesis(dat, "b_zBase > 0")
+p1 <- hypothesis(x = fit1,
+hypothesis = "zAge > 0",
+alpha = 0.05)
+plot(p1)
+p2 <- hypothesis(x = fit1,
+hypothesis = "zBase > 0",
+alpha = 0.05)
+plot(p2)
+p2$hypothesis
+p2$samples
+head(p2$samples)
+### set options ###
+theme_set(bayesplot::theme_default(base_family = "sans"))
+plot(p2)
+?bayesplot::theme_default
+bayesplot::color_scheme_set(scheme = "lightblue")
+bayesplot::color_scheme_set(scheme = "brightblue")
+plot(p1)
+bayesplot::color_scheme_set(scheme = "gray")
+plot(p2)
+hist(epilepsy$count)
+hist(scale(epilepsy$count))
+hist(log(epilepsy$count))
+dnorm(100, mean = 0, sd = 10)
+dnorm(epilepsy$count, mean = 0, sd = 10)
+hist(dnorm(epilepsy$count, mean = 0, sd = 10))
+pos
+?prior
+get_prior(count ~ zAge + zBase * Trt + (1 | patient),
+data = epilepsy)
+prior1
+prior_summary(fit1)
+stancode(fit1)
+i
+fit1 <- brm(count ~ zAge + zBase * Trt + (1 | patient),
+data = epilepsy,
+family = poisson(),
+prior = prior1,
+backend = "cmdstanr",
+cores = 12,
+sample_prior = TRUE)
+stancode(fit1)
+plot(hypothesis(fit1, "zAge > 0"))
+plot(hypothesis(fit1, "zBase > 0"))
+prior1 <- prior(normal(0, 5), class = b) +
+prior(cauchy(0, 2), class = sd)
+fit1 <- brm(count ~ zAge + zBase * Trt + (1 | patient),
+data = epilepsy,
+family = poisson(),
+prior = prior1,
+backend = "cmdstanr",
+cores = 12,
+sample_prior = TRUE)
+bayesplot::color_scheme_set(scheme = "blue")
+plot(hypothesis(fit1, "zBase > 0"))
+# generate a summary of the results
+summary(fit1)
+head(predict(fit1))
+prior_summary(fit1)
+# investigate model fit
+loo(fit1)
+pp_check(fit1)
+draws_fit <- as_draws_array(fit1)
+pos <- posterior::summarize_draws(draws_fit)
+p1 <- hypothesis(x = fit1,
+hypothesis = "zAge > 0",
+alpha = 0.05)
+plot(p1)
+p2 <- hypothesis(x = fit1,
+hypothesis = "zBase > 0",
+alpha = 0.05)
+plot(p2)
+head(p2$samples)
+prior1
+# The Effect of Priors
+get_prior(count ~ zAge + zBase * Trt + (1 | patient),
+data = epilepsy)
+# The Effect of Priors
+ppp <- get_prior(count ~ zAge + zBase * Trt + (1 | patient),
+data = epilepsy)
+ppp
+## define a prior on all population-level effects a once
+ppp$prior[1] <- "normal(0,10)"
+## define a specific prior on the population-level effect of Trt
+ppp$prior[5] <- "student_t(10, 0, 5)"
+ppp
+# The Effect of Priors
+ppp <- get_prior(count ~ zAge + zBase * Trt + (1 | patient),
+data = epilepsy)
+ppp
+## define a specific prior on the population-level effect of Trt
+ppp$prior[5] <- "student_t(10, 0, 5)"
+ppp
+## verify that the priors indeed found their way into Stan's model code
+make_stancode(count ~ zAge + zBase * Trt + (1|patient) + (1|obs),
+data = epilepsy, family = poisson(),
+prior = ppp)
+ppp
+ppp
+# The Effect of Priors
+ppp <- get_prior(count ~ zAge + zBase * Trt + (1 | patient),
+data = epilepsy)
+## define a prior on all population-level effects a once
+ppp$prior[1] <- "normal(0,10)"
+## define a specific prior on the population-level effect of Trt
+ppp$prior[5] <- "student_t(10,0,5)"
+## verify that the priors indeed found their way into Stan's model code
+make_stancode(count ~ zAge + zBase * Trt + (1|patient) + (1|obs),
+data = epilepsy, family = poisson(),
+prior = ppp)
+# The Effect of Priors
+ppp <- get_prior(count ~ zAge + zBase * Trt + (1 | patient),
+data = epilepsy)
+ppp
+## verify that the priors indeed found their way into Stan's model code
+make_stancode(count ~ zAge + zBase * Trt + (1|patient) + (1|obs),
+data = epilepsy, family = poisson(),
+prior = ppp)
+# The Effect of Priors
+ppp <- get_prior(count ~ zAge + zBase * Trt + (1|patient) + (1|obs),
+data = epilepsy, family = poisson())
+ppp
+## verify that the priors indeed found their way into Stan's model code
+make_stancode(count ~ zAge + zBase * Trt + (1|patient) + (1|obs),
+data = epilepsy, family = poisson(),
+prior = ppp)
+## define a prior on all population-level effects a once
+ppp$prior[1] <- "normal(0,10)"
+## define a specific prior on the population-level effect of Trt
+ppp$prior[5] <- "student_t(10,0,5)"
+## verify that the priors indeed found their way into Stan's model code
+make_stancode(count ~ zAge + zBase * Trt + (1|patient) + (1|obs),
+data = epilepsy, family = poisson(),
+prior = ppp)
+ppp
+## verify that the priors indeed found their way into Stan's model code
+make_stancode(count ~ zAge + zBase * Trt + (1|patient) + (1|obs),
+data = epilepsy, family = poisson(),
+prior = ppp)
+fit1 <- brm(count ~ zAge + zBase * Trt + (1 | patient),
+data = epilepsy,
+family = poisson(),
+prior = ppp,
+backend = "cmdstanr",
+cores = 12,
+sample_prior = TRUE)
+## verify that the priors indeed found their way into Stan's model code
+make_stancode(count ~ zAge + zBase * Trt + (1|patient) + (1|obs),
+data = epilepsy, family = poisson(),
+prior = ppp)
+fit1 <- brm(count ~ zAge + zBase * Trt + (1|patient) + (1|obs),
+data = epilepsy,
+family = poisson(),
+prior = ppp,
+backend = "cmdstanr",
+cores = 12,
+sample_prior = TRUE)
+stancode(fit1)
+plot(hypothesis(fit1, "zBase > 0"))
+# generate a summary of the results
+summary(fit1)
+head(predict(fit1))
+prior_summary(fit1)
+# investigate model fit
+loo(fit1)
+pp_check(fit1)
+draws_fit <- as_draws_array(fit1)
+pos <- posterior::summarize_draws(draws_fit)
+p1 <- hypothesis(x = fit1,
+hypothesis = "zAge > 0",
+alpha = 0.05)
+plot(p1)
+p2 <- hypothesis(x = fit1,
+hypothesis = "zBase > 0",
+alpha = 0.05)
+plot(p2)
+# The Effect of Priors
+ppp <- get_prior(count ~ zAge + zBase * Trt + (1|patient) + (1|obs),
+data = epilepsy, family = poisson())
+## define a prior on all population-level effects a once
+ppp$prior[1] <- "normal(0,1)"
+## define a specific prior on the population-level effect of Trt
+ppp$prior[5] <- "student_t(10,0,5)"
+fit1 <- brm(count ~ zAge + zBase * Trt + (1|patient) + (1|obs),
+data = epilepsy,
+family = poisson(),
+prior = ppp,
+backend = "cmdstanr",
+cores = 12,
+sample_prior = TRUE)
+stancode(fit1)
+plot(hypothesis(fit1, "zBase > 0"))
+# generate a summary of the results
+summary(fit1)
+head(predict(fit1))
+prior_summary(fit1)
+# investigate model fit
+loo(fit1)
+pp_check(fit1)
+draws_fit <- as_draws_array(fit1)
+pos <- posterior::summarize_draws(draws_fit)
+p1 <- hypothesis(x = fit1,
+hypothesis = "zAge > 0",
+alpha = 0.05)
+plot(p1)
+p2 <- hypothesis(x = fit1,
+hypothesis = "zBase > 0",
+alpha = 0.05)
+plot(p2)
+ppp$prior
+ppp$prior[1]
+ppp$prior[5]
+prior1
+# The Effect of Priors
+ppp <- get_prior(count ~ zAge + zBase * Trt + (1|patient) + (1|obs),
+data = epilepsy, family = poisson())
+## define a prior on all population-level effects a once
+ppp$prior[1] <- "normal(0, 1)"
+## define a specific prior on the population-level effect of Trt
+ppp$prior[5] <- "student_t(10, 0, 5)"
+## verify that the priors indeed found their way into Stan's model code
+make_stancode(count ~ zAge + zBase * Trt + (1|patient) + (1|obs),
+data = epilepsy, family = poisson(),
+prior = ppp)
+fit1 <- brm(count ~ zAge + zBase * Trt + (1|patient) + (1|obs),
+data = epilepsy,
+family = poisson(),
+prior = ppp,
+backend = "cmdstanr",
+cores = 12,
+sample_prior = TRUE)
+ppp
+ppp
+## Horseshoe regularization
+#https://paul-buerkner.github.io/brms/reference/horseshoe.html
+# The Effect of Priors
+ppp <- get_prior(count ~ zAge + zBase * Trt + (1|patient) + (1|obs),
+data = epilepsy, family = poisson())
+ppp
+pp
+ppp
+## define a prior on all population-level effects a once
+ppp$prior[1] <- "normal(0, 1)"
+ppp
+## define a specific prior on the population-level effect of Trt
+ppp$prior[5] <- "student_t(10, 0, 5)"
+setwd("Dropbox/Teaching/Multilevel/MLM_intro/")
+library(tidyverse) # Easily Install and Load the 'Tidyverse'
+library(cmdstanr) # R Interface to 'CmdStan'
+library(posterior) # Tools for Working with Posterior Distributions
+library(bayesplot) # Plotting for Bayesian Models
+library(brms) # Bayesian Regression Models using 'Stan'
+library(ape) # Analyses of Phylogenetics and Evolution
+bayesplot::color_scheme_set("brightblue")
+theme_set(bayesplot::theme_default(base_family = "sans"))
+##### Data #####
+### Trait data and predictors
+pana_trt <- read_csv("data/pana_traits.csv")
+glimpse(pana_trt)
+## Prior
+prior_m2 <- get_prior(log(sla) ~
+CHELSA_bio10_1 +
+CHELSA_bio10_12 +
+(1 | Species) +
+(1 | gr(Species_model, cov = pana_vcv)),
+family = gaussian(),
+data = pana_trt,
+data2 = list(pana_vcv = pana_vcv))
+prior_m2$prior[1] <- "normal(0,10)" # slopes
+# Get the matrix of variance-covariance
+pana_vcv <- vcv.phylo(pana_phy)
+### Phylogenetic tree
+pana_phy <- read.nexus("data/pana_phylo.nex")
+# Get the matrix of variance-covariance
+pana_vcv <- vcv.phylo(pana_phy)
+## Prior
+prior_m2 <- get_prior(log(sla) ~
+CHELSA_bio10_1 +
+CHELSA_bio10_12 +
+(1 | Species) +
+(1 | gr(Species_model, cov = pana_vcv)),
+family = gaussian(),
+data = pana_trt,
+data2 = list(pana_vcv = pana_vcv))
+prior_m2$prior[1] <- "normal(0,10)" # slopes
+prior_m2
+## Model
+mod2_WeakPrior <- brm(formula = log(sla) ~
+CHELSA_bio10_1 +
+CHELSA_bio10_12 +
+(1 | Species) +
+(1 | gr(Species_model, cov = pana_vcv)),
+prior = prior_m2,
+family = gaussian(),
+data = pana_trt,
+data2 = list(pana_vcv = pana_vcv),
+chains = 4,
+backend = "cmdstanr",
+cores = 10)
+bayes_R2(mod2_WeakPrior)
+summary(mod2_WeakPrior)
+### Estimate the phylogenetic signal of SLA
+h_phy2 <- paste(
+"sd_Species_model__Intercept^2 /",
+"(sd_Species_model__Intercept^2 + sd_Species__Intercept^2 + sigma^2) = 0"
+)
+ps2 <- hypothesis(mod2_WeakPrior, h_phy2, class = NULL)
+ps2
+### Get the population-level effects or fixed effects
+fixef(mod2_WeakPrior)
+### Get group-level effects or random effects
+ranef(mod2_WeakPrior)
+### Plot the species-group-level effect
+## Aux theme
+theme_new <- function() {
+theme_bw() +
+theme(panel.grid.minor = element_blank(),
+plot.background = element_rect(fill = "white", color = NA),
+strip.background = element_rect(fill = "grey80", color = NA),
+legend.title = element_text(face = "bold", size = 15),
+legend.text = element_text(size = 12))
+}
+## Bar colors
+barCOLS <- c(scales::alpha("red", 0.7),
+scales::alpha("darkblue", 0.7),
+scales::alpha("darkgray", 0.7))
+### Get Species group-level effects (SD)
+species <- ranef(mod2_WeakPrior, probs = c(0.025, 0.05, 0.11, 0.89, 0.95, 0.975))$Species
+selSPP <- unique(pana_trt$Species)[1:20]
+# plot
+dt_spp <-  species[, , "Intercept"] %>%
+data.frame() %>%
+rownames_to_column() %>%
+rename(species = rowname) %>%
+as_tibble() %>%
+mutate(species2 = gsub("_", " ", species)) %>%
+mutate(direction = ifelse(Q11 > 0, "Positive",
+ifelse(Q89 < 0, "Negative", "Null"))) %>%
+arrange(species2) %>%
+filter(species %in% selSPP)
+dt_spp
+p_species <- dt_spp %>%
+ggplot(aes(x = species2, y = Estimate, color = direction)) +
+geom_pointrange(aes(ymin = Q5, ymax = Q95),
+fatten = 1, linewidth = 1.5, alpha = 0.4) +
+geom_pointrange(aes(ymin = Q11, ymax = Q89),
+fatten = 2, linewidth = 3.5, alpha = 0.7) +
+#coord_cartesian(ylim = c(-1, 1.5)) +
+geom_hline(yintercept = 0, linewidth = 1, colour = "darkgray", linetype = "dashed") +
+scale_colour_manual(values = c("Positive" = barCOLS[2],
+"Negative" = barCOLS[1],
+"Null" = barCOLS[3])
+) +
+coord_flip() +
+labs(x = NULL,
+y = "Species-level effect (SD)") +
+theme_new() +
+theme(
+legend.position = "none",
+axis.text.x = element_text(vjust = 0.5, hjust = 0.7),
+axis.text.y = element_text(face = "italic"),
+axis.title = element_text(size = 18),
+axis.text = element_text(size = 15, colour = "black")
+)
+p_species
